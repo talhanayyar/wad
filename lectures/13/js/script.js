@@ -20,7 +20,6 @@ var questions = [{
         "none of the above"],
     correctAnswer : 1
 }];
-
 var currentQuestion = 0;
 var correctAnswers = 0;
 var quizOver = false;
@@ -29,18 +28,28 @@ document.getElementById("quiz-message").style.display = 'none';
 
 function displayNext() {
     currentQuestion++;
-    var v = document.getElementById("question");
-    v.innerText=questions[currentQuestion].question;
+    displayCurrentQuestion();
 }
 
 function displayCurrentQuestion() {
-   var q1 = document.getElementById("question");
+    var count=0;
+    var temp=0;
+    var q1 = document.getElementById("question");
     var c = document.getElementById("choice-list");
+    if(currentQuestion < 3)
+        c.innerHTML=' ';
     q1.innerText=questions[currentQuestion].question;
     for(var j=0; j<4; j++)
     {
-        c.innerText+='<li>' + '<input type="radio" name="checked" >' + questions[currentQuestion].choices[j]+'</li>';
+        c.innerHTML+='<li>' + '<input type="radio" name="checked" >' + questions[currentQuestion].choices[j]+'</li>';
     }
+    if(questions[currentQuestion].choices[0].checked)
+    {
+        count++;
+    }
+    correctAnswers = count;
+    if(currentQuestion >= 2)
+        displayScore();
 }
 
 function resetQuiz() {
